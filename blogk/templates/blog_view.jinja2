@@ -1,0 +1,12 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+ 	<h2>{{entry.title}}</h2>
+ 	<p>{{entry.body}}</p>
+ 	<p>Created {{entry.created_in_words}} ago.</p>
+ 	<p>
+ 		<a href="{{request.route_url('blog_action', action='edit', _query={'id': entry.id})}}">Edit</a>
+ 	</p>
+</div>
+{% endblock content %}

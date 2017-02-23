@@ -1,0 +1,32 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="content">
+	{% if request.authenticated_userid %}
+		Logged as <strong>{{request.authenticated_userid}}</strong>::
+		<a href="{{request.route_url('auth',action='out')}}">Sign Out</a>
+	{% else %}
+		<form action="{{request.route_url('auth',action='in')}}" method="post" class="form-inline">
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign in" class="btn btn-default">
+            </div>
+        </form>
+        <a href="{{request.route_url('register')}}">Register here</a>
+	{% endif %}
+	<a href="{{request.route_url('blog_action', action='create')}}">Create New Post</a>
+ 	<ul>
+ 		{% for entry in entries %}
+ 			<li>
+ 				<a href="{{request.route_url('blog', id=entry.id, slug=entry.slug)}}"><h3>{{entry.title}}</h3></a>
+ 				<p>{{entry.body}}</p>
+ 			</li>
+ 		{% endfor %}
+ 	</ul>
+</div>
+{% endblock content %}
